@@ -1,0 +1,50 @@
+body{
+    .mainCardsContainer{
+        margin-top: 9rem;
+    }
+
+    .pokemonTypes{
+        display: grid;
+        gap: 3rem;
+        grid-auto-rows: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+        padding: 4rem 2rem 0rem 2rem;
+        justify-items: center;
+    }
+
+    .individuealType{
+        cursor: pointer;
+    }
+    
+    .individuealType:hover{
+        text-decoration: underline;
+    }
+
+    .cardsContainer{
+        display: grid;
+        gap: 3rem;
+        grid-auto-rows: 23rem;
+        grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+        padding: 5rem 2rem;
+        justify-items: center;
+    }
+    
+    .pokemonCards{
+        font-size: 48px;
+        color: #486284;
+        text-align: center;
+    }
+    
+    .pokemonGo{
+        margin-top: 2rem;
+        font-size: 18px;
+        color: #1A202C;
+        text-align: center;
+    }
+}
+
+body.dark-mode{
+    .pokemonGoDark{
+        color: white;
+    }
+}
