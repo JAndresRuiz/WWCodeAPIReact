@@ -6,18 +6,31 @@ import axios from "axios";
 const BuyCards = () => {
   const [pokemonList, setPokemonList] = useState([]);
   const [types, setTypes] = useState([]);
+  const [showMore, setShowmore] = useState(20);
+  const [filter, setFilter] = useState("");
+  const [pokemonFilterList, setPokemonFilterList] = useState([]);
 
-  const [pokemonData, setPokemonData] = useState([]);
-  const [filterType, setFilterType] = useState("");
-  const [filteredPokemon, setFilteredPokemon] = useState([]);
+  let morePokemos = 0;
+
+  function showMorePokemons() {
+    if (showMore > 139) {
+      morePokemos = showMore + 11;
+      setShowmore(morePokemos);
+    } else {
+      morePokemos = showMore + 20;
+      setShowmore(morePokemos);
+    }
+  }
 
   useEffect(() => {
     const fetchPokemon = async () => {
       try {
         const response = await axios.get(
-          "https://pokeapi.co/api/v2/pokemon?limit=151"
+          `https://pokeapi.co/api/v2/pokemon?offset=0&limit=${showMore}`
         );
+        //console.log(response);
         const data = response.data.results;
+        //console.log(data);
         const promises = data.map(async (pokemon) => {
           const res = await fetch(pokemon.url);
           const data = await res.json();
@@ -29,9 +42,8 @@ const BuyCards = () => {
         console.log(error);
       }
     };
-
     fetchPokemon();
-  }, []);
+  }, [showMore]);
 
   useEffect(() => {
     const filterPokemon = async () => {
@@ -52,42 +64,32 @@ const BuyCards = () => {
     filterPokemon();
   }, []);
 
-  const handleTypeChange = (type) => {
-    setFilterType(type);
+  const filtrarObjetos = (valorBoton) => {
+    setFilter(valorBoton);
   };
 
   useEffect(() => {
-    const fetchPokemonData = async () => {
-      const response = await fetch("https://pokeapi.co/api/v2/pokemon");
-      const data = await response.json();
-      setPokemonData(data.results);
-    };
-    fetchPokemonData();
-  }, []);
-
-  /*
-  useEffect(() => {
-    const fetchPokemon = async () => {
+    const pokemonType = async () => {
       try {
         const response = await axios.get(
-          `https://pokeapi.co/api/v2/type/${filterType}`
+          `https://pokeapi.co/api/v2/type/${filter}`
         );
-        const url = await response.data;
-        const data = url.pokemon;
+        //console.log(response);
+        const data = response.data.pokemon;
+        //console.log(data);
         const promises = data.map(async (pokemon) => {
           const res = await fetch(pokemon.url);
           const data = await res.json();
           return data;
         });
         const results = await Promise.all(promises);
-        setFilteredPokemon(results);
+        setPokemonFilterList(results);
       } catch (error) {
-        setFilterType(error);
+        console.log(error);
       }
     };
-    fetchPokemon();
-  }, [filterType]);
-*/
+    pokemonType();
+  }, [filter]);
 
   return (
     <>
@@ -102,7 +104,7 @@ const BuyCards = () => {
         <div className="pokemonTypes">
           {types.map((type) => (
             <h3
-              onClick={() => handleTypeChange(type.name)}
+              onClick={() => filtrarObjetos(type.name)}
               className="individuealType individuealTypeDark"
               key={type.id}
             >
@@ -111,19 +113,19 @@ const BuyCards = () => {
           ))}
         </div>
         <div className="cardsContainer">
-          {filteredPokemon.length ? (
-            <>
-              {filteredPokemon.map((pokemon) => (
-                <CardPokemon pokemon={pokemon} key={pokemon.id} />
-              ))}
-            </>
-          ) : (
-            <>
-              {pokemonList.map((pokemon) => (
-                <CardPokemon pokemon={pokemon} key={pokemon.id} />
-              ))}
-            </>
-          )}
+          {pokemonList.map((pokemon) => (
+            <CardPokemon pokemon={pokemon} key={pokemon.id} />
+          ))}
+        </div>
+        <div className="buttonContainer">
+          <button
+            className="showMoreButton"
+            onClick={showMorePokemons}
+            disabled={showMore >= 151}
+          >
+            Show More Cards
+          </button>
+          <p className="amountPokes">{showMore} Cards</p>
         </div>
       </div>
     </>
@@ -131,36 +133,3 @@ const BuyCards = () => {
 };
 
 export default BuyCards;
-
-/*
-
-
-{pokemonList.map((pokemon) => (
-  <CardPokemon pokemon={pokemon} key={pokemon.id} />
-))}
-
-
-
-  useEffect(() => {
-    const fetchPokemon = async () => {
-      try {
-        const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=151");
-        const data = response.data.results;
-        const promises = data.map(async (pokemon) => {
-          const res = await fetch(pokemon.url);
-          const data = await res.json();
-          console.log(data);
-          const type = data.types;
-          console.log(type);
-        });
-        const results = await Promise.all(promises);
-        setPokemonList(results);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchPokemon();
-  }, []);
-
-*/

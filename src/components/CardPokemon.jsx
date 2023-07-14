@@ -1,6 +1,7 @@
 import '../Styles/CardPokemon.css';
 
 const CardPokemon = ({ pokemon }) => {
+  
   return (
       <div className="cardContainer">
         <span className='nameLike'>

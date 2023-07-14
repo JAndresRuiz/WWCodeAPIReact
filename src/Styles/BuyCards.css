@@ -1,50 +1,106 @@
-body{
-    .mainCardsContainer{
-        margin-top: 9rem;
-    }
+body {
+  .mainCardsContainer {
+    margin-top: 9rem;
+    display: flex;
+    flex-direction: column;
+    text-transform: capitalize;
+  }
 
-    .pokemonTypes{
-        display: grid;
-        gap: 3rem;
-        grid-auto-rows: 1rem;
-        grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
-        padding: 4rem 2rem 0rem 2rem;
-        justify-items: center;
-    }
+  .pokemonTypes {
+    display: flex;
+    margin-top: 3rem;
+    width: 90%;
+    align-self: center;
+    justify-content: space-between;
+    overflow-x: scroll;
+  }
 
-    .individuealType{
-        cursor: pointer;
-    }
-    
-    .individuealType:hover{
-        text-decoration: underline;
-    }
+  .pokemonTypes::-webkit-scrollbar {
+    height: 6px;
+  }
 
-    .cardsContainer{
-        display: grid;
-        gap: 3rem;
-        grid-auto-rows: 23rem;
-        grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
-        padding: 5rem 2rem;
-        justify-items: center;
+  .pokemonTypes::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 4px;
+  }
+
+  .individuealType {
+    cursor: pointer;
+    font-size: 28px;
+    font-weight: lighter;
+    margin: 0 8rem;
+  }
+
+  .individuealType:hover {
+    text-decoration: underline;
+  }
+
+  .cardsContainer {
+    display: grid;
+    gap: 3rem;
+    grid-auto-rows: 23rem;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    padding: 5rem 2rem;
+    justify-items: center;
+  }
+
+  .pokemonCards {
+    font-size: 48px;
+    color: #486284;
+    text-align: center;
+  }
+
+  .pokemonGo {
+    margin-top: 2rem;
+    font-size: 18px;
+    color: #1a202c;
+    text-align: center;
+  }
+
+  .showMoreButton {
+    width: 156px;
+    height: 44px;
+    border: none;
+    border-radius: 6px;
+    background-color: #306bb3;
+    color: white;
+    cursor: pointer;
+  }
+
+  .showMoreButton:hover{
+    background-color:#5c8ecb;
+  }
+
+  .buttonContainer {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-between;
+    align-self: flex-end;
+    margin-right: 5rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 975px) {
+    .buttonContainer {
+      flex-direction: column;
+      align-self: center;
+      margin-right: 0;
     }
-    
-    .pokemonCards{
-        font-size: 48px;
-        color: #486284;
-        text-align: center;
+    .amountPokes {
+      margin-top: 2rem;
     }
-    
-    .pokemonGo{
-        margin-top: 2rem;
-        font-size: 18px;
-        color: #1A202C;
-        text-align: center;
-    }
+  }
 }
 
-body.dark-mode{
-    .pokemonGoDark{
-        color: white;
-    }
+body.dark-mode {
+  .pokemonGoDark {
+    color: white;
+  }
+  .pokemonTypes::-webkit-scrollbar-thumb {
+    background-color: white;
+  }
+  .amountPokes{
+    color: white;
+  }
 }
