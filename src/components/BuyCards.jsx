@@ -7,8 +7,8 @@ const BuyCards = () => {
   const [pokemonList, setPokemonList] = useState([]);
   const [types, setTypes] = useState([]);
   const [showMore, setShowmore] = useState(20);
-  const [filter, setFilter] = useState("");
   const [pokemonFilterList, setPokemonFilterList] = useState([]);
+  const [showfilter, setShowFilter] = useState(false);
 
   let morePokemos = 0;
 
@@ -28,9 +28,7 @@ const BuyCards = () => {
         const response = await axios.get(
           `https://pokeapi.co/api/v2/pokemon?offset=0&limit=${showMore}`
         );
-        //console.log(response);
         const data = response.data.results;
-        //console.log(data);
         const promises = data.map(async (pokemon) => {
           const res = await fetch(pokemon.url);
           const data = await res.json();
@@ -65,31 +63,23 @@ const BuyCards = () => {
   }, []);
 
   const filtrarObjetos = (valorBoton) => {
-    setFilter(valorBoton);
-  };
-
-  useEffect(() => {
-    const pokemonType = async () => {
-      try {
-        const response = await axios.get(
-          `https://pokeapi.co/api/v2/type/${filter}`
-        );
-        //console.log(response);
-        const data = response.data.pokemon;
-        //console.log(data);
-        const promises = data.map(async (pokemon) => {
-          const res = await fetch(pokemon.url);
-          const data = await res.json();
-          return data;
+    setPokemonFilterList(pokemonList);
+    if (valorBoton == "borrar") {
+      setPokemonFilterList(pokemonList);
+      setShowFilter(false);
+    } else {
+      let newPokemons = pokemonList
+        .filter((pokemon) =>
+          pokemon.types.some((tipo) => tipo.type.name == valorBoton)
+        )
+        .map((pokemones) => {
+          let pokemonfilter = { ...pokemones };
+          return pokemonfilter;
         });
-        const results = await Promise.all(promises);
-        setPokemonFilterList(results);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    pokemonType();
-  }, [filter]);
+      setPokemonFilterList(newPokemons);
+      setShowFilter(true);
+    }
+  };
 
   return (
     <>
@@ -102,6 +92,12 @@ const BuyCards = () => {
           release soon.
         </p>
         <div className="pokemonTypes">
+          <h3
+            className="individuealType individuealTypeDark"
+            onClick={() => filtrarObjetos("borrar")}
+          >
+            All
+          </h3>
           {types.map((type) => (
             <h3
               onClick={() => filtrarObjetos(type.name)}
@@ -112,11 +108,19 @@ const BuyCards = () => {
             </h3>
           ))}
         </div>
-        <div className="cardsContainer">
-          {pokemonList.map((pokemon) => (
-            <CardPokemon pokemon={pokemon} key={pokemon.id} />
-          ))}
-        </div>
+        {!showfilter ? (
+          <div className="cardsContainer">
+            {pokemonList.map((pokemon) => (
+              <CardPokemon pokemon={pokemon} key={pokemon.id} />
+            ))}
+          </div>
+        ) : (
+          <div className="cardsContainer">
+            {pokemonFilterList.map((pokemon) => (
+              <CardPokemon pokemon={pokemon} key={pokemon.id} />
+            ))}
+          </div>
+        )}
         <div className="buttonContainer">
           <button
             className="showMoreButton"
@@ -133,3 +137,11 @@ const BuyCards = () => {
 };
 
 export default BuyCards;
+
+/*
+<div className="cardsContainer">
+          {pokemonList.map((pokemon) => (
+            <CardPokemon pokemon={pokemon} key={pokemon.id} />
+          ))}
+        </div>
+*/

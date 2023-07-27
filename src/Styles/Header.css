@@ -51,6 +51,7 @@ body{
     .navLinksHeader li a:hover {
         color: white;
         text-decoration: underline;
+        cursor: pointer;
     }
     
     .Dark{
