@@ -60,6 +60,7 @@ const Header = () => {
   };
 
   return (
+    currentPage, navigateTo,
     <>
       <header className="headerContainer">
         <div className="logoHeaderImage">

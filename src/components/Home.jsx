@@ -1,8 +1,12 @@
 import React from "react";
 import "../Styles/Home.css";
 import ashLeavesAnime from "../assets/ashLeavesAnime.png";
+import Header from "./Header";
 
 const Home = () => {
+
+  const { currentPage, navigateTo } = Header();
+
   return (
     <main className="mainContainer">
       <div className="homeContainer">
@@ -23,7 +27,7 @@ const Home = () => {
               </a>
             </li>
             <li>
-              <a className="aLinks" href="#">
+              <a className="aLinks" onClick={() => navigateTo("buycards")} >
                 Buy cards
               </a>
             </li>

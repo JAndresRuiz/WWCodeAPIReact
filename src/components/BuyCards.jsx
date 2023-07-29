@@ -137,11 +137,3 @@ const BuyCards = () => {
 };
 
 export default BuyCards;
-
-/*
-<div className="cardsContainer">
-          {pokemonList.map((pokemon) => (
-            <CardPokemon pokemon={pokemon} key={pokemon.id} />
-          ))}
-        </div>
-*/
