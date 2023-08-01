@@ -1,18 +1,10 @@
-import React from "react";
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  Link,
-  Outlet,
-  RouterProvider,
-} from "react-router-dom";
-import { useState, useEffect } from "react";
-import logo from "../assets/logo.png";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "../Styles/Header.css";
 import hamburgerButton from "../assets/hamburger.svg";
-import Home from "./Home";
+import logo from "../assets/logo.png";
 import BuyCards from "./BuyCards";
+import Home from "./Home";
 import OurBlog from "./OurBlog";
 
 const Header = () => {
@@ -43,57 +35,46 @@ const Header = () => {
     }
   };
 
-  const [currentPage, setCurrentPage] = useState("home");
-
-  const renderPage = () => {
-    if (currentPage === "home") {
-      return <Home />;
-    } else if (currentPage === "buycards") {
-      return <BuyCards />;
-    } else if (currentPage === "ourblog") {
-      return <OurBlog />;
-    }
-  };
-
-  const navigateTo = (page) => {
-    setCurrentPage(page);
-  };
-
   return (
-    currentPage, navigateTo,
     <>
-      <header className="headerContainer">
-        <div className="logoHeaderImage">
-          <img src={logo} alt="Logo Pokemon" />
-        </div>
-        <img
-          src={hamburgerButton}
-          className="hamburgerButton"
-          onClick={moviletoggle}
-        />
-        <nav className="linksButtonHeader">
-          <div className="navLinksHeaderContent" style={movilePanel}>
-            <ul className="navLinksHeader">
-              <li>
-                <a onClick={() => navigateTo("home")}>Home</a>
-              </li>
-              <li>
-                <a onClick={() => navigateTo("buycards")}>Buy Cards</a>
-              </li>
-              <li>
-                <a onClick={() => navigateTo("ourblog")}>Our Blog</a>
-              </li>
-            </ul>
-            <button
-              className="Dark Light"
-              onClick={() => setDarkMode(!darkMode)}
-            >
-              {button}
-            </button>
+      <Router>
+        <header className="headerContainer">
+          <div className="logoHeaderImage">
+            <img src={logo} alt="Logo Pokemon" />
           </div>
-        </nav>
-      </header>
-      <div>{renderPage()}</div>
+          <img
+            src={hamburgerButton}
+            className="hamburgerButton"
+            onClick={moviletoggle}
+          />
+          <nav className="linksButtonHeader">
+            <div className="navLinksHeaderContent" style={movilePanel}>
+              <ul className="navLinksHeader">
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/buycards">Buy Cards</Link>
+                </li>
+                <li>
+                  <Link to="ourblog">Our Blog</Link>
+                </li>
+              </ul>
+              <button
+                className="Dark Light"
+                onClick={() => setDarkMode(!darkMode)}
+              >
+                {button}
+              </button>
+            </div>
+          </nav>
+        </header>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="buycards" element={<BuyCards />} />
+          <Route path="ourblog" element={<OurBlog />} />
+        </Routes>
+      </Router>
     </>
   );
 };

@@ -38,9 +38,9 @@ body {
 
   .cardsContainer {
     display: grid;
-    gap: 3rem;
+    gap: 4.5rem;
     grid-auto-rows: 23rem;
-    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
     padding: 5rem 2rem;
     justify-items: center;
   }

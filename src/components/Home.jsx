@@ -1,8 +1,10 @@
 import React from "react";
 import "../Styles/Home.css";
 import ashLeavesAnime from "../assets/ashLeavesAnime.png";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  let navigate = useNavigate();
   return (
     <main className="mainContainer">
       <div className="homeContainer">
@@ -18,12 +20,12 @@ const Home = () => {
           </p>
           <ul className="cardsBlogContent cardsBlogContentDark">
             <li>
-              <a className="aLinks" href="#">
+              <a className="aLinks" onClick={() => navigate("ourblog")}>
                 Go to our blog
               </a>
             </li>
             <li>
-              <a className="aLinks" href="#">
+              <a className="aLinks" onClick={() => navigate("buycards")}>
                 Buy cards
               </a>
             </li>

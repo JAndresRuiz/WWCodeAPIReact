@@ -17,17 +17,17 @@ const Footer = () => {
         </p>
         <ul className="socialMediaIcons">
           <li>
-            <a href="#">
+            <a href="https://www.facebook.com/PokemonOficialLatAm/?brand_redir=230809307041021" target="_blank">
               <img className="socialMediaImg" src={Facebook} />
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="https://twitter.com/Pokemon" target="_blank">
               <img className="socialMediaImg" src={Twiter} />
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="https://www.instagram.com/pokemon/?hl=es" target="_blank">
               <img className="socialMediaImg" src={Instagram} />
             </a>
           </li>
